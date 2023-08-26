@@ -31,7 +31,8 @@ const controlJob = async () => {
 
   await notificationChannel.sendTyping();
 
-  if (guild.members.cache.size === 1) await guild.members.fetch();
+  console.log("Fetching members...", guild.members.cache.size);
+  if (guild.members.cache.size < guild.memberCount) await guild.members.fetch();
 
   const votes = await client.getVotes();
   const subscriptions = await client.getSubscriptions();
