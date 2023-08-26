@@ -40,7 +40,7 @@ const controlJob = async () => {
     const member = guild.members.cache.get(memberId);
     if (!member) continue;
     if (!member.roles.cache.has(voteRole.id)) {
-      await member.roles.add(voteRole);
+      await member.roles.add(voteRole).catch(() => null);
       await notificationChannel.send(
         `${member.toString()} Çok ama çok teşekkürler! Senin sayende bot'a daha fazla kişi erişecek.\n_ _\`${
           voteRole.name
@@ -51,7 +51,7 @@ const controlJob = async () => {
 
   for (const member of voteRole.members.values()) {
     if (!votes.includes(member.id)) {
-      await member.roles.remove(voteRole);
+      await member.roles.remove(voteRole).catch(() => null);
       await notificationChannel.send(
         `${member.toString()} Görünüşe göre oy verme vaktin gelmiş bu süreç boyunca senden \`${
           voteRole.name
@@ -64,7 +64,7 @@ const controlJob = async () => {
     const member = guild.members.cache.get(memberId);
     if (!member) continue;
     if (!member.roles.cache.has(primeRole.id)) {
-      await member.roles.add(primeRole);
+      await member.roles.add(primeRole).catch(() => null);
       await notificationChannel.send(
         `${member.toString()} Çorbada benimde tuzum olsun dedi ve bize destek oldu.\n_ _\`${
           primeRole.name
@@ -75,7 +75,7 @@ const controlJob = async () => {
 
   for (const member of primeRole.members.values()) {
     if (!subscriptions.includes(member.id)) {
-      await member.roles.remove(primeRole);
+      await member.roles.remove(primeRole).catch(() => null);
       await notificationChannel.send(
         `${member.toString()} Prime aboneliğin sonlandığı için \`${
           primeRole.name
