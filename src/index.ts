@@ -72,7 +72,7 @@ const controlJob = async () => {
       if (!member.roles.cache.has(primeRole.id)) {
         await member.roles.add(primeRole).catch(() => null);
         await notificationChannel.send(
-          `${member.toString()} Çorbada benimde tuzum olsun dedi ve bize destek oldu.\n_ _\`${
+          `${member.toString()} Çorbada benim de tuzum olsun dedi ve bize destek oldu.\n_ _\`${
             primeRole.name
           }\` rolünü kazandın!`
         );
