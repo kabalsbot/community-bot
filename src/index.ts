@@ -34,8 +34,6 @@ const controlJob = async () => {
     if (!notificationChannel || !notificationChannel.isTextBased())
       return console.log("Notification channel not found!");
 
-    await notificationChannel.sendTyping();
-
     if (guild.members.cache.size < guild.memberCount)
       await guild.members.fetch();
 
@@ -106,7 +104,7 @@ client.once("ready", async () => {
     status: "online",
   });
 
-  new CronJob("*/15 * * * *", controlJob, null, true, "Europe/Istanbul");
+  new CronJob("*/45 * * * *", controlJob, null, true, "Europe/Istanbul");
 });
 
 client.on("messageCreate", (message) => {
