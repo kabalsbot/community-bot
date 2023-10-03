@@ -104,7 +104,7 @@ client.once("ready", async () => {
     status: "online",
   });
 
-  new CronJob("*/45 * * * *", controlJob, null, true, "Europe/Istanbul");
+  new CronJob("*/15 * * * *", controlJob, null, true);
 });
 
 client.on("messageCreate", (message) => {
