@@ -8,7 +8,6 @@ process.on("unhandledRejection", (err) => {
 });
 
 const client = new CommunityClient({
-  partials: [Partials.GuildMember],
   intents: [
     GatewayIntentBits.Guilds,
     GatewayIntentBits.GuildMembers,
@@ -16,6 +15,8 @@ const client = new CommunityClient({
     GatewayIntentBits.MessageContent,
   ],
 });
+
+let fetched = false;
 
 const controlJob = async () => {
   try {
@@ -34,11 +35,13 @@ const controlJob = async () => {
     if (!notificationChannel || !notificationChannel.isTextBased())
       return console.log("Notification channel not found!");
 
-    if (guild.members.cache.size < guild.memberCount)
-      await guild.members.fetch();
-
     const votes = await client.getVotes();
     const subscriptions = await client.getSubscriptions();
+
+    if ((votes.length > 0 || subscriptions.length > 0) && !fetched) {
+      await guild.members.fetch();
+      fetched = true;
+    }
 
     for (const memberId of votes) {
       const member = guild.members.cache.get(memberId);
