@@ -16,8 +16,6 @@ const client = new CommunityClient({
   ],
 });
 
-let fetched = false;
-
 const controlJob = async () => {
   try {
     const guild = client.guilds.cache.get(process.env.GUILD_ID);
@@ -37,11 +35,6 @@ const controlJob = async () => {
 
     const votes = await client.getVotes();
     const subscriptions = await client.getSubscriptions();
-
-    if ((votes.length > 0 || subscriptions.length > 0) && !fetched) {
-      await guild.members.fetch();
-      fetched = true;
-    }
 
     for (const memberId of votes) {
       const member = guild.members.cache.get(memberId);
