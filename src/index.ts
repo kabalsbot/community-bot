@@ -16,7 +16,7 @@ const client = new CommunityClient({
   ],
 });
 
-const controlJob = async () => {
+const controlJob = async (force = false) => {
   try {
     const guild = client.guilds.cache.get(process.env.GUILD_ID);
     if (!guild) return console.log("Guild not found!");
@@ -35,6 +35,8 @@ const controlJob = async () => {
 
     const votes = await client.getVotes();
     const subscriptions = await client.getSubscriptions();
+
+    if (force) await guild.members.fetch();
 
     for (const memberId of votes) {
       const member = guild.members.cache.get(memberId);
@@ -110,7 +112,7 @@ client.on("messageCreate", (message) => {
     message.content.includes("kontrol")
   ) {
     message.reply("Kontrol işlemi başlatıldı.");
-    controlJob();
+    controlJob(message.content.includes("force"));
   }
 });
 
